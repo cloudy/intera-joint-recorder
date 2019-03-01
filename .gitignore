@@ -1,1 +1,3 @@
-traj_final.txt
+*.txt
+*.swp
+*.pyc
