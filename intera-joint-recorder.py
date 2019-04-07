@@ -37,7 +37,7 @@ lights.set_light_state('right_hand_red_light')
 lights.set_light_state('right_hand_green_light', False)
 
 traj_final = np.concatenate((np.array(t).reshape((len(t),1))-t[0], np.array(q), np.ones((len(q),1)*0.0402), axis=1)
-header = 'time,right_j0,right_j1,right_j2,right_j3,right_j4,right_j5,right_j6,right_gripper'
+header = 'time,' + ','.join(limb.joint_names()) + ',right_gripper'
 np.savetxt(arg.output_file, traj_final, delimiter=',', header=header, comments='', fmt="%1.12f")
 
 lights.set_light_state('right_hand_red_light', False)
