@@ -7,7 +7,6 @@ import argparse
 
 
 rospy.init_node("intera_joint_recorder")
-
 parser = argparse.ArgumentParser(description="Record joint trajectories")
 parser.add_argument('-of', '--output-file', type=str, default='output.txt')
 arg = parser.parse_args()
@@ -36,8 +35,7 @@ while not cuff.lower_button():
 lights.set_light_state('right_hand_red_light')
 lights.set_light_state('right_hand_green_light', False)
 
-traj_final = np.concatenate((np.array(t).reshape((len(t),1))-t[0], np.array(q), np.ones((len(q),1)*0.0402), axis=1)
+traj = np.concatenate((np.array(t).reshape((len(t),1))-t[0], np.array(q), np.zeros((len(q), 1))), axis=1)
 header = 'time,' + ','.join(limb.joint_names()) + ',right_gripper'
-np.savetxt(arg.output_file, traj_final, delimiter=',', header=header, comments='', fmt="%1.12f")
-
+np.savetxt(arg.output_file, traj, delimiter=',', header=header, comments='', fmt="%1.12f")
 lights.set_light_state('right_hand_red_light', False)
